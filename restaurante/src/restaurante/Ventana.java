@@ -31,6 +31,18 @@ public class Ventana extends JFrame implements ActionListener {
 	JLabel l6;
 	JLabel l7;
 	
+	JPanel panelComida;
+	JPanel panelComida1;
+	JPanel panelComida2;
+	JPanel panelComida3;
+	JPanel panelComida4;
+	JPanel panelComida5;
+	
+	ImageIcon fotoCliente;
+	JScrollPane scroll;//este scrollpane es solo para el panel del CENTRO
+	//si ocuparamos mas espacio por ejemplo en panel cliente,
+	//crear otro JscrollPane y wrappear ese otro panel, easy.
+	
 	JButton botonAvanzar;
 	
 	
@@ -55,12 +67,27 @@ public class Ventana extends JFrame implements ActionListener {
 		principalEast.setLayout(new BoxLayout(principalEast,BoxLayout.Y_AXIS));
 		principalSouth = new JPanel();
 		
-		principalWest.setBackground(Color.LIGHT_GRAY);
-		principalEast.setBackground(Color.LIGHT_GRAY);
-		principalSouth.setBackground(Color.black);
+		scroll = new JScrollPane(principalCenter);
+		
+		principalWest.setBackground(Color.WHITE);
+		principalEast.setBackground(Color.WHITE);
+		principalSouth.setBackground(Color.orange);
 		
 		l2 = new JLabel("órdenes pendientes + contadores");
 		principalCenter.add(l2);
+		
+		panelComida = new JPanel();
+		panelComida.setBackground(Color.LIGHT_GRAY);
+		panelComida1 = new JPanel();
+		panelComida1.setBackground(Color.LIGHT_GRAY);
+		panelComida2 = new JPanel();
+		panelComida2.setBackground(Color.LIGHT_GRAY);
+		panelComida3 = new JPanel();
+		panelComida3.setBackground(Color.LIGHT_GRAY);
+		panelComida4 = new JPanel();
+		panelComida4.setBackground(Color.LIGHT_GRAY);
+		panelComida5 = new JPanel();
+		panelComida5.setBackground(Color.LIGHT_GRAY);
 		
 		comida = new JLabel("Hamburguesa, 1000 colones, tiempo de produccion = 5");
 		comida1 = new JLabel("Sopa Azteca, 5000 colones, tiempo de produccion = 4");
@@ -69,15 +96,25 @@ public class Ventana extends JFrame implements ActionListener {
 		comida4 = new JLabel("orden de papas grandes, 1000 colones, tiempo de produccion = 2");
 		comida5 = new JLabel("Pescado entero, 3000 colones, tiempo de produccion = 5");
 		
-		principalCenter.add(comida);
-		principalCenter.add(comida1);
-		principalCenter.add(comida2);
-		principalCenter.add(comida3);
-		principalCenter.add(comida4);
-		principalCenter.add(comida5);
+		panelComida.add(comida);
+		panelComida1.add(comida1);
+		panelComida2.add(comida2);
+		panelComida3.add(comida3);
+		panelComida4.add(comida4);
+		panelComida5.add(comida5);
 		
-		l3 = new JLabel("acá va la foto del cliente 1");
-		l3.setForeground(Color.BLACK);
+		principalCenter.add(panelComida);
+		principalCenter.add(panelComida1);
+		principalCenter.add(panelComida2);
+		principalCenter.add(panelComida3);
+		principalCenter.add(panelComida4);
+		principalCenter.add(panelComida5);
+		
+		
+		fotoCliente = new ImageIcon("C:\\Users\\mauar\\Desktop\\CODE\\restaurante_POO\\restaurante\\src\\imagenes\\cliente.jpg");
+		
+		l3 = new JLabel(fotoCliente);
+		//l3.setForeground(Color.BLACK);
 		l4 = new JLabel("acá va la info del cliente ");
 		l4.setForeground(Color.BLACK);
 		l5 = new JLabel("acá van los contadores del cliente aaaaaaaaa");
@@ -99,7 +136,7 @@ public class Ventana extends JFrame implements ActionListener {
 		this.add(principalWest,BorderLayout.WEST);
 		this.add(principalEast,BorderLayout.EAST);
 		this.add(principalSouth,BorderLayout.SOUTH);
-		this.add(principalCenter,BorderLayout.CENTER);
+		this.add(scroll,BorderLayout.CENTER);
 		//this.add(scroll,BorderLayout.SOUTH);
 		
 		
