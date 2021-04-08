@@ -1,0 +1,84 @@
+{
+    "Plato furte":[
+        {
+            "Nombre": "Hamburguesa",
+            "Precio": 1200,
+            "Duracion": 5,
+            "Tamaño": ["Medio", "Entero"]
+        },
+        {
+            "Nombre": "Chifrijo",
+            "Precio": 3500,
+            "Duracion": 7,
+            "Tamaño": ["Medio", "Entero"]
+        },
+        {
+            "Nombre": "Nuggets",
+            "Precio": 1500,
+            "Duracion": 5,
+            "Tamaño": ["Medio", "Entero"]
+        },
+        {
+            "Nombre": "Casado",
+            "Precio": 2600,
+            "Duracion": 6,
+            "Tamaño": ["Medio", "Entero"]
+        }
+    ],
+    "Acompañamientos":[
+        {
+            "Nombre": "Crepa",
+            "Precio": 800,
+            "Duracion": 4,
+            "Tipo": ["Salado", "Dulce"]
+        },
+        {
+            "Nombre": "Empanada",
+            "Precio": 700,
+            "Duracion": 3,
+            "Tipo": ["Salado", "Dulce"]
+        },
+        {
+            "Nombre": "Helado",
+            "Precio": 500,
+            "Duracion": 3,
+            "Tipo": ["Salado", "Dulce"]
+        },
+        {
+            "Nombre": "Papas Fritas",
+            "Precio": 500,
+            "Duracion": 3,
+            "Tipo": ["Salado", "Dulce"]
+        }
+    ],
+    "Bebidas":[
+        {
+            "Nombre": "Gaseosa",
+            "Precio": 900,
+            "Duracion": 2,
+            "Tipo": ["Frio", "Caliente"],
+            "Tamaño": [200, 250, 330]
+        },
+        {
+            "Nombre": "Té",
+            "Precio": 700,
+            "Duracion": 2,
+            "Tipo": ["Frio", "Caliente"],
+            "Tamaño": [200, 250, 330]
+        },
+        {
+            "Nombre": "Café",
+            "Precio": 800,
+            "Duracion": 2,
+            "Tipo": ["Frio", "Caliente"],
+            "Tamaño": [200, 250, 330]
+        },
+        {
+            "Nombre": "Fresco",
+            "Precio": 700,
+            "Duracion": 2,
+            "Tipo": ["Frio", "Caliente"],
+            "Tamaño": [200, 250, 330]
+        }
+    ]
+}
