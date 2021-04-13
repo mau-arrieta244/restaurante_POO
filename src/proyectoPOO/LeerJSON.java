@@ -19,10 +19,12 @@ public class LeerJSON {
 		parser = new JSONParser();
 		
 		try {
+			// Crea un objeto tipo JSON que contiene toda la información
 			JSONObject menu = (JSONObject) parser.parse(new FileReader("Menu.json"));
 			System.out.println(menu);
-			extraerInfo(menu);
+			extraerInfo(menu); // Extrae toda la información del JSON
 		}
+		// En caso se que se encuentre algun error
 		catch(FileNotFoundException e) {e.printStackTrace();}
 		catch(IOException e) {e.printStackTrace();}
 		catch(ParseException e) {e.printStackTrace();}
@@ -30,7 +32,8 @@ public class LeerJSON {
 	}
 	
 	private static void extraerInfo(JSONObject m) {
-		JSONArray plato = (JSONArray) m.get("Plato fuerte");
+		// Extrae la información de todos los platos fuertes
+		JSONArray plato = (JSONArray) m.get("Plato fuerte"); // Cuando en el JSON tiene paréntesis cuadrados, se usan los JSONArrays
 		System.out.println(plato);
 		for (int i = 0; i < plato.size(); i++) {
 			JSONObject platillo = (JSONObject) plato.get(i);
@@ -42,6 +45,7 @@ public class LeerJSON {
 				System.out.println(tamano.get(i2));
 			}
 		}
+		// Extrae la información de todos los acompañamientos
 		JSONArray plato2 = (JSONArray) m.get("Acompanamientos");
 		System.out.println(plato2);
 		for (int i = 0; i < plato.size(); i++) {
@@ -54,6 +58,7 @@ public class LeerJSON {
 				System.out.println(tipo.get(i2));
 			}
 		}
+		// Extrae la información de todas las bebidas
 		JSONArray plato3 = (JSONArray) m.get("Bebidas");
 		System.out.println(plato3);
 		for (int i = 0; i < plato.size(); i++) {
@@ -82,9 +87,5 @@ public class LeerJSON {
 	
 	public List bebidas() {
 		return bebidas;
-	}
-
-	public static void main(String[] args) {
-		LeerJSON objeto = new LeerJSON();
 	}
 }
