@@ -1,4 +1,4 @@
-package JSONReader;
+package proyectoPOO;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,14 +8,14 @@ import java.util.List;
 import org.json.simple.parser.*;
 import org.json.simple.*;
 
-public class LeerJSON {
+public class JSONReader {
 	
 	JSONParser parser;
 	List fuertes;
 	List acompanamientos;
 	List bebidas;
 	
-	public LeerJSON() {
+	public JSONReader() {
 		parser = new JSONParser();
 		
 		try {

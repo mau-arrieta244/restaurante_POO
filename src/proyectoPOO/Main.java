@@ -106,7 +106,7 @@ public class Main {
 		
 		colaClientes.pedidosTotales.add(p1);
 		colaClientes.pedidosTotales.add(p2);
-	
+		
 		System.out.println(colaProduc.espacioOcupado());
 		System.out.println("\n ---- totales: \n");
 		System.out.println(colaClientes.pedidosTotales);
