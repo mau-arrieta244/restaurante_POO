@@ -1,21 +1,35 @@
 package proyectoPOO;
 //import java.util.Scanner; para inputs
-
+import java.util.Iterator;
 
 public class Main {
 	
-	//global
+	//global //
+	
 	static Cola colaClientes = new Cola();
 	static ColaProduccion colaProduc = new ColaProduccion();
+	
+	static int ordenesCompletadas =0;
+	
+	public static boolean todosInactivos(Pedido pedido) {//revisa si algun pedido de la cola total tiene todo en inactivo
+		boolean condicion = true;
+		for(Alimento alimento4 : pedido.items) {
+			if (alimento4.activo == true) {
+				condicion = false;
+			}
+		}
+	return condicion;
+	}
 	
 	public static void avanzar() {
 		// 1. Ir metiendo productos de cola hasta que no haya espacio
 		int disponible = (10-colaProduc.espacioOcupado());
 		for(Pedido pedido : colaClientes.pedidosTotales) {
 			for(Alimento alimento : pedido.items) {
-				if(alimento.activo==true) {
+				if(alimento.usado==false) {
 					if(disponible >= alimento.espacio) {
 						colaProduc.produccion.add(alimento);
+						alimento.usado=true;//ya fue usado,  no se volvera a agregar.
 						//ajustar el valor disponible para siguiente iteracion del ciclo
 						disponible = (10-colaProduc.espacioOcupado());
 					}
@@ -28,17 +42,34 @@ public class Main {
 		}
 		
 		// 3. revisar si tiempoProduccion de algun producto ya llego a 0, y sacarlo
-		for(Alimento alimento3 : colaProduc.produccion) {
+		Iterator<Alimento> itr = colaProduc.produccion.iterator(); 
+		while(itr.hasNext()) {
+			Alimento alimento3 = (Alimento)itr.next();
+			//System.out.println(alimento3);
 			if(alimento3.tiempoProduccion==0) {
-				colaProduc.produccion.remove(alimento3);
 				alimento3.activo=false;
-				//lo sacamos pero vuelve a aparecer, es porque cuando itera sobre clientes, vuelve a encontrarlo de primero y lo vuelve a meter a produccion
+				itr.remove();
 			}
 		}
 		
+		
 		// 4. revisar si algun pedido en colaClientes ya tiene todos los alimentos en inactivos,
 		//ordenesCompletas += 1 , sumar precio productos y agregar a ganancias completas.
-	}
+		Iterator<Pedido>it1 = colaClientes.pedidosTotales.iterator();
+		while(it1.hasNext()) {
+			Pedido pedido4 = (Pedido)it1.next();
+			if(todosInactivos(pedido4)==true) {
+				it1.remove();
+				ordenesCompletadas+=1;
+			}
+		}
+		int sizePedidos = colaClientes.pedidosTotales.size();
+		int sizeProduccion = colaProduc.produccion.size();
+		if(sizePedidos == 0 && sizeProduccion ==0) {
+			System.out.println("adios!");
+			System.exit(0);
+		}
+	}//fin de avanzar()
 
 	public static void main(String[] args) {
 		
@@ -75,16 +106,40 @@ public class Main {
 		
 		colaClientes.pedidosTotales.add(p1);
 		colaClientes.pedidosTotales.add(p2);
+	
 		System.out.println(colaProduc.espacioOcupado());
+		System.out.println("\n ---- totales: \n");
+		System.out.println(colaClientes.pedidosTotales);
 		avanzar();
+		System.out.println("\n----  1 --------  \n");
 		System.out.println(colaProduc.espacioOcupado());
 		System.out.println(colaProduc.produccion);
+		System.out.println("\n ---- totales: \n");
+		System.out.println(colaClientes.pedidosTotales);
 		System.out.println("\n //////////////////////////////// \n");
 		avanzar();
+		System.out.println("\n---------- 2 ----------\n");
+		System.out.println(colaProduc.espacioOcupado());
 		System.out.println(colaProduc.produccion);
+		System.out.println("\n ---- totales: \n");
+		System.out.println(colaClientes.pedidosTotales);
 		System.out.println("\n //////////////////////////////// \n");
 		avanzar();
+		System.out.println("\n-------- 3 ---------\n");
+		System.out.println(colaProduc.espacioOcupado());
 		System.out.println(colaProduc.produccion);
+		System.out.println("\n ---- totales: \n");
+		System.out.println(colaClientes.pedidosTotales);
+		System.out.println("\n //////////////////////////////// \n");
+		avanzar();
+		System.out.println("\n-------- 3 ---------\n");
+		System.out.println(colaProduc.espacioOcupado());
+		System.out.println(colaProduc.produccion);
+		System.out.println("\n ---- totales: \n");
+		System.out.println(colaClientes.pedidosTotales);
+		System.out.println("\n //////////////////////////////// \n");
+		
+		
 		
 		
 		//luego de crear instancias de JSON, se meten en array 

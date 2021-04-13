@@ -11,4 +11,7 @@ public  class Alimento {
 		//si tiempoProduccion llega a 0, activo = false y ya no
 		//se vuelve a agregar a la colaProduccion desde colaClientes.
 		
+		boolean usado = false; // para que aun si no ha llegado a tiempo 0,
+		//no se vuelva a incluir en colaProduccion ya que estaria repitiendo
+		
 }
