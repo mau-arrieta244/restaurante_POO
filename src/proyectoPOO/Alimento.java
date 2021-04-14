@@ -11,7 +11,13 @@ public  class Alimento {
 		//si tiempoProduccion llega a 0, activo = false y ya no
 		//se vuelve a agregar a la colaProduccion desde colaClientes.
 		
-		boolean usado = false; // para que aun si no ha llegado a tiempo 0,
+		boolean usado = false; 
+		// para que aun si no ha llegado a tiempo 0,
 		//no se vuelva a incluir en colaProduccion ya que estaria repitiendo
+		
+		boolean impaciencia = false; 
+		// si un pedidoImpaciente de colaClientes llega contador impaciencia a 0,
+		//impaciencia = true, y dentro de cola revisamos si productos tienen este true y los sacamos
+		
 		
 }

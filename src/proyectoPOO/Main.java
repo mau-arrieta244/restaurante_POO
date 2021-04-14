@@ -12,6 +12,7 @@ public class Main {
 	static Menu ListaMenu = new Menu();//ListaMenu.items contiene arrayList con todos los alimentos del restaurante
 	
 	static int ordenesCompletadas =0;
+	static int ganancias = 0;
 	
 	public static boolean todosInactivos(Pedido pedido) {//revisa si algun pedido de la cola total tiene todo en inactivo
 		boolean condicion = true;
@@ -25,6 +26,11 @@ public class Main {
 	
 	public static void crearPedido() {
 		Pedido pedido = new Pedido();
+		boolean[] opciones = {true,false};
+		Random r = new Random();
+		int ran = r.nextInt(2);//una opcion aleatoria entre 0 y 1 para el indice de opciones
+		pedido.impaciente = opciones[ran];
+		
 		Random r1 = new Random();
 		int aleatorio = r1.nextInt(5);//cuantos productos como maximo? puse 5 (cuenta aun cuando llega a 0)
 		
@@ -36,6 +42,7 @@ public class Main {
 			aleatorio--;
 		}
 		System.out.println(pedido.items);
+		System.out.println("impaciente: "+pedido.impaciente);
 		colaClientes.pedidosTotales.add(pedido);
 	}
 	
@@ -70,13 +77,43 @@ public class Main {
 			}
 		}
 		
+		//4. reducir contadores de impaciencia y sacar pedido de colaClientes si llegó a 0 (sin sumar ganancias)
+		Iterator<Pedido>it = colaClientes.pedidosTotales.iterator();
+		while(it.hasNext()) {
+			Pedido pedido3 = (Pedido)it.next();
+			if(pedido3.impaciente&&pedido3.contadorPaciencia==0) {
+				for(Alimento alimento4 : pedido3.items) {
+					alimento4.impaciencia=true;
+				}
+				it.remove();
+				System.out.println("Cliente impaciente se ha cansado de esperar...");
+			}
+			if(pedido3.impaciente) {
+				pedido3.contadorPaciencia--;
+				//System.out.println(pedido3.contadorPaciencia);
+			}	
+	}	
+		//Sacar alimentos de colaProduc si el pedidoImpaciente asociado ya se fue de la cola
+		Iterator<Alimento> it2 = colaProduc.produccion.iterator(); 
+		while(it2.hasNext()) {
+			Alimento alimento5 = (Alimento)it2.next();
+			if(alimento5.impaciencia==true) {
+				it2.remove();
+			}
+		}
 		
-		// 4. revisar si algun pedido en colaClientes ya tiene todos los alimentos en inactivos,
+		
+		// 5. revisar si algun pedido en colaClientes ya tiene todos los alimentos en inactivos,
 		//ordenesCompletas += 1 , sumar precio productos y agregar a ganancias completas.
 		Iterator<Pedido>it1 = colaClientes.pedidosTotales.iterator();
 		while(it1.hasNext()) {
 			Pedido pedido4 = (Pedido)it1.next();
 			if(todosInactivos(pedido4)==true) {
+				
+				for(Alimento alim : pedido4.items) {
+					ganancias+=alim.precio;
+				}
+				
 				it1.remove();
 				ordenesCompletadas+=1;
 			}
@@ -84,11 +121,28 @@ public class Main {
 		int sizePedidos = colaClientes.pedidosTotales.size();
 		int sizeProduccion = colaProduc.produccion.size();
 		if(sizePedidos == 0 && sizeProduccion ==0) {
-			System.out.println("adios!");
+			System.out.println("\n ------ Cola produccion terminada -------- \n");
+			System.out.println("\n Alimentos en produccion:");
+			System.out.println(colaProduc.produccion);
+			System.out.println("\nEspacio ocupado: "+colaProduc.espacioOcupado());
+			System.out.println("\nOrdenes completadas: "+ordenesCompletadas);
+			System.out.println("\n Ganancias totales: "+ganancias);
+			System.out.println("\n ----  Adios! -------- \n");
 			System.exit(0);
 		}
 	}//fin de avanzar()
 
+	
+	public static void info() {
+		System.out.println("\n ---------------------- \n");
+		System.out.println("\nOrdenes totales:");
+		System.out.println(colaClientes.pedidosTotales);
+		System.out.println("\n Alimentos en produccion:");
+		System.out.println(colaProduc.produccion);
+		System.out.println("\nEspacio ocupado: "+colaProduc.espacioOcupado());
+		System.out.println("\nOrdenes completadas: "+ordenesCompletadas);
+		System.out.println("\n Ganancias: "+ganancias);
+	}
 	public static void main(String[] args) {
 		//luego de crear instancias de JSON, se meten en array (ListaMenu)
 		// de ese array agarramos esos objetos <Alimento> para meterlos a instancias Pedido.
@@ -104,6 +158,30 @@ public class Main {
 			crearPedido();
 			cantidad--;
 		}
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		
 		
 	}
 
