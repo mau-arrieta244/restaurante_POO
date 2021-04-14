@@ -72,7 +72,11 @@ public class Main {
 	}//fin de avanzar()
 
 	public static void main(String[] args) {
+		//luego de crear instancias de JSON, se meten en array 
+		// de ese array agarramos esos objetos para meterlos a instancias pedido.
+		JSONReader fileJSON = new JSONReader();
 		
+		/*
 		Bebida b1 = new Bebida();
 		b1.nombre = "Guanabana";
 		b1.precio = 1000 ;
@@ -140,11 +144,6 @@ public class Main {
 		System.out.println("\n //////////////////////////////// \n");
 		
 		
-		
-		
-		//luego de crear instancias de JSON, se meten en array 
-		// de ese array agarramos esos objetos para meterlos a instancias pedido.
-		/*
 		System.out.println("Digite la cantidad de clientes por crear: ");
 		Scanner scan = new Scanner(System.in);
 		int cantidad = scan.nextInt();
