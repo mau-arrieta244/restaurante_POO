@@ -11,5 +11,5 @@ public class Pedido {
 	//todos los pedidos van a tener contadorPaciencia pero no todos tienen el booleano en true.
 	//para eliminar, verificar ambas condiciones con un &&, si cumple ambas, es impaciente y llego a 0, se saca.
 	boolean impaciente = false;
-	int contadorPaciencia = 1;
+	int contadorPaciencia = 8;
 }

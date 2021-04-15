@@ -7,6 +7,7 @@ public class Main {
 	
 	// global //
 	
+	
 	static Cola colaClientes = new Cola();
 	static ColaProduccion colaProduc = new ColaProduccion();
 	static Menu ListaMenu = new Menu();//ListaMenu.items contiene arrayList con todos los alimentos del restaurante
@@ -23,6 +24,7 @@ public class Main {
 		}
 	return condicion;
 	}
+	
 	
 	public static void crearPedido() {
 		Pedido pedido = new Pedido();
@@ -143,12 +145,13 @@ public class Main {
 		System.out.println("\nOrdenes completadas: "+ordenesCompletadas);
 		System.out.println("\n Ganancias: "+ganancias);
 	}
+	
 	public static void main(String[] args) {
 		//luego de crear instancias de JSON, se meten en array (ListaMenu)
 		// de ese array agarramos esos objetos <Alimento> para meterlos a instancias Pedido.
 		
 		JSONReader fileJSON = new JSONReader(ListaMenu);
-		//System.out.println(ListaMenu.items);
+		
 		
 		System.out.println("Digite la cantidad de clientes por crear: ");
 		Scanner scan = new Scanner(System.in);
@@ -158,31 +161,36 @@ public class Main {
 			crearPedido();
 			cantidad--;
 		}
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
 		
+		Ventana v1 = new Ventana(colaClientes.pedidosTotales.get(0));
+		//System.out.println(ListaMenu.items);
 		
+		/*
+		
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		avanzar();
+		info();
+		*/
 	}
 
 }
