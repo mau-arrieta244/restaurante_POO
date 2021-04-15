@@ -152,7 +152,6 @@ public class Main {
 		
 		JSONReader fileJSON = new JSONReader(ListaMenu);
 		
-		
 		System.out.println("Digite la cantidad de clientes por crear: ");
 		Scanner scan = new Scanner(System.in);
 		int cantidad = scan.nextInt();
@@ -165,32 +164,6 @@ public class Main {
 		Ventana v1 = new Ventana(colaClientes);
 		//System.out.println(ListaMenu.items);
 		
-		/*
-		
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		avanzar();
-		info();
-		*/
 	}
 
 }
