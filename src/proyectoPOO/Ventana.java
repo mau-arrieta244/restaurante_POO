@@ -69,24 +69,24 @@ public class Ventana extends JFrame implements ActionListener {
 	
 	public Ventana() {
 		super("Restaurante");
-		this.setPreferredSize(new DimensionUIResource(1000,600));
+		this.setPreferredSize(new DimensionUIResource(1200,600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		agregarComponentes();
+		//agregarComponentes();
 		
 		this.pack();
 		this.setVisible(true);
 	}
-	public Ventana(Pedido primerCliente) {
+	public Ventana(Cola cola) {
 		super("Restaurante");
 		this.setPreferredSize(new DimensionUIResource(1000,600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		agregarComponentes(primerCliente);
+		agregarComponentes(cola);
 		
 		this.pack();
 		this.setVisible(true);
 	}
-	
+	/*
 	private void agregarComponentes() {
 		principalWest = new JPanel();
 		principalWest.setLayout(new BoxLayout(principalWest,BoxLayout.Y_AXIS));
@@ -154,7 +154,7 @@ public class Ventana extends JFrame implements ActionListener {
 		l4.setForeground(Color.BLACK);
 		l5 = new JLabel("acá van los contadores del cliente aaaaaaaaa");
 		l5.setForeground(Color.BLACK);
-		/*
+		
 		numPedido = new JLabel(cliente1.items.toString());
 		item0nombre = new JLabel(cliente1.items.get(0).nombre);
 		item0precio = new JLabel(String.valueOf(cliente1.items.get(0).precio));
@@ -163,11 +163,11 @@ public class Ventana extends JFrame implements ActionListener {
 		item1precio = new JLabel(String.valueOf(cliente1.items.get(1).precio));
 		item1tiempo = new JLabel(String.valueOf(cliente1.items.get(1).tiempoProduccion));
 		// //////////////////////////////////////////////////////////////////////////////////////
-		*/
+		
 		principalWest.add(l3);
 		principalWest.add(l4);
 		principalWest.add(l5);
-		/*
+		
 		principalWest.add(numPedido);
 		principalWest.add(item0nombre);
 		principalWest.add(item0precio);
@@ -175,7 +175,7 @@ public class Ventana extends JFrame implements ActionListener {
 		principalWest.add(item1nombre);
 		principalWest.add(item1precio);
 		principalWest.add(item1tiempo);
-		*/
+		
 		l6 = new JLabel("acá van las estadisticas generales");
 		l7 = new JLabel("acá van los contadores generales AAAAAAAAAAA ");
 		
@@ -194,8 +194,33 @@ public class Ventana extends JFrame implements ActionListener {
 		
 		
 	}
+	  */
 	
-	private void agregarComponentes(Pedido cliente1) {
+	
+	public void agregarACliente(String nombre,int precio, int tiempo) {
+		JPanel panel;
+		JLabel etiquetaNombre;
+		JLabel etiquetaPrecio;
+		JLabel etiquetaTiempo;
+		JLabel etiquetaEspacio;
+		
+		panel = new JPanel(new GridLayout(4,0));
+		panel.setBackground(Color.WHITE);
+		
+		etiquetaNombre = new JLabel("Nombre: "+nombre);// acá, crear una instancia de clase, e incluir su foto, info, etc al panel.
+		etiquetaPrecio = new JLabel("Precio: "+String.valueOf(precio));
+		etiquetaTiempo = new JLabel("Tiempo produccion: "+String.valueOf(tiempo));
+		etiquetaEspacio = new JLabel("------------------------------------\n");
+		
+		panel.add(etiquetaNombre);
+		panel.add(etiquetaPrecio);
+		panel.add(etiquetaTiempo);
+		panel.add(etiquetaEspacio);
+		principalWest.add(panel);
+	}
+	
+	private void agregarComponentes(Cola colaClientes) {
+		
 		principalWest = new JPanel();
 		principalWest.setLayout(new BoxLayout(principalWest,BoxLayout.Y_AXIS));
 		
@@ -258,32 +283,23 @@ public class Ventana extends JFrame implements ActionListener {
 		//panel CLIENTE
 		fotoCliente = new ImageIcon("C:\\Users\\mauar\\Desktop\\CODE\\restaurante_POO\\src\\proyectoPOO\\imagen\\cliente.jpg");
 		l3 = new JLabel(fotoCliente);
-		l4 = new JLabel("acá va la info del cliente ");
-		l4.setForeground(Color.BLACK);
-		l5 = new JLabel("acá van los contadores del cliente aaaaaaaaa");
-		l5.setForeground(Color.BLACK);
-		
-		numPedido = new JLabel(cliente1.items.toString());
-		item0nombre = new JLabel(cliente1.items.get(0).nombre);
-		item0precio = new JLabel(String.valueOf(cliente1.items.get(0).precio));
-		item0tiempo = new JLabel(String.valueOf(cliente1.items.get(0).tiempoProduccion));
-		item1nombre = new JLabel(cliente1.items.get(1).nombre);
-		item1precio = new JLabel(String.valueOf(cliente1.items.get(1).precio));
-		item1tiempo = new JLabel(String.valueOf(cliente1.items.get(1).tiempoProduccion));
-		// //////////////////////////////////////////////////////////////////////////////////////
+		//l4 = new JLabel("acá va la info del cliente ");
+		//l4.setForeground(Color.BLACK);
+		//l5 = new JLabel("acá van los contadores del cliente aaaaaaaaa");
+		//l5.setForeground(Color.BLACK);
 		
 		principalWest.add(l3);
-		principalWest.add(l4);
-		principalWest.add(l5);
+		//principalWest.add(l4);
+		//principalWest.add(l5);
 		
-		principalWest.add(numPedido);
-		principalWest.add(item0nombre);
-		principalWest.add(item0precio);
-		principalWest.add(item0tiempo);
-		principalWest.add(item1nombre);
-		principalWest.add(item1precio);
-		principalWest.add(item1tiempo);
+		for (Alimento alimento : colaClientes.pedidosTotales.get(0).items) {
+			String nom = alimento.nombre;
+			int precio = alimento.precio;
+			int tiempo = alimento.tiempoProduccion;
+			agregarACliente(nom,precio,tiempo);		
+		}
 		
+	
 		l6 = new JLabel("acá van las estadisticas generales");
 		l7 = new JLabel("acá van los contadores generales AAAAAAAAAAA ");
 		
@@ -312,7 +328,7 @@ public class Ventana extends JFrame implements ActionListener {
 			System.out.println("AAAA");
 			Main.avanzar();
 			Main.info();
-			Ventana nueva = new Ventana(Main.colaClientes.pedidosTotales.get(0));
+			Ventana nueva = new Ventana(Main.colaClientes);
 			nueva.setVisible(true);
 			this.dispose();
 			

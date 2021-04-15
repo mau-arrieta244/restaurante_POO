@@ -162,7 +162,7 @@ public class Main {
 			cantidad--;
 		}
 		
-		Ventana v1 = new Ventana(colaClientes.pedidosTotales.get(0));
+		Ventana v1 = new Ventana(colaClientes);
 		//System.out.println(ListaMenu.items);
 		
 		/*
