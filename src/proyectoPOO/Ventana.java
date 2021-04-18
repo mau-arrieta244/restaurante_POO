@@ -79,7 +79,8 @@ public class Ventana extends JFrame implements ActionListener {
 	
 	public void agregarACentro(Pedido pedido) {
 		JPanel panel;
-		JLabel espacio = new JLabel("\n -------------------- \n");
+		JLabel espacio = new JLabel("\n ----------------------------------- \n");
+		JLabel espacio1 = new JLabel("\n ----------------------------------- \n");
 		JLabel p = new JLabel("\n Pedido : \n");
 			
 		panel = new JPanel();
@@ -88,6 +89,8 @@ public class Ventana extends JFrame implements ActionListener {
 		panel.add(p);
 		
 		for(Alimento alim:pedido.items) {
+			JLabel espacio3 = new JLabel(" -  -  -  -  -  -  -");
+			panel.add(espacio3);
 			for(String dato : alim.info()) {
 				JLabel labelDato = new JLabel(dato);
 				panel.add(labelDato);
@@ -95,6 +98,7 @@ public class Ventana extends JFrame implements ActionListener {
 			
 		}
 		panel.add(espacio);
+		panel.add(espacio1);
 		panel.setBackground(Color.orange);
 		principalCenter.add(panel);
 	}
@@ -105,7 +109,7 @@ public class Ventana extends JFrame implements ActionListener {
 		principalCenter.setLayout(new BoxLayout(principalCenter,BoxLayout.Y_AXIS));
 		scrollCentro = new JScrollPane(principalCenter);
 		
-		l2 = new JLabel("órdenes pendientes + contadores");
+		l2 = new JLabel("Pedidos Totales");
 		principalCenter.add(l2);
 		
 		for (Pedido pedido : cola.pedidosTotales) {
@@ -113,7 +117,41 @@ public class Ventana extends JFrame implements ActionListener {
 		}
 	}
 	
-	private void agregarComponentes(Cola colaClientes) {
+	public void agregarAEast(Alimento alim) {
+		JPanel panel;
+		JLabel espacio = new JLabel("\n ----------------------------------- \n");
+		JLabel espacio1 = new JLabel("\n ----------------------------------- \n");
+		JLabel p = new JLabel("\n Alimento : \n");
+			
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+		panel.setBackground(Color.WHITE);
+		panel.add(p);
+		for(String dato : alim.info()) {
+			JLabel labelDato = new JLabel(dato);
+			panel.add(labelDato);
+		}
+		panel.add(espacio);
+		panel.add(espacio1);
+		//panel.setBackground(Color.orange);
+		principalEast.add(panel);
+	}
+	
+	private void crearPanelEast(ColaProduccion cola) {
+		principalEast = new JPanel();
+		principalEast.setLayout(new BoxLayout(principalEast,BoxLayout.Y_AXIS));
+		principalEast.setBackground(Color.WHITE);
+		scrollEast = new JScrollPane(principalEast);
+		
+		l2 = new JLabel("En Produccion: ");
+		principalEast.add(l2);
+		
+		for (Alimento alim : cola.produccion) {
+			agregarAEast(alim);		
+		}
+	}
+	
+	private void agregarComponentes(Cola colaClientes,ColaProduccion colaProduc) {
 		
 		//principalWest = new JPanel();
 		//principalWest.setLayout(new BoxLayout(principalWest,BoxLayout.Y_AXIS));
@@ -121,18 +159,18 @@ public class Ventana extends JFrame implements ActionListener {
 		//principalCenter = new JPanel();
 		//principalCenter.setLayout(new BoxLayout(principalCenter,BoxLayout.Y_AXIS));
 		
-		principalEast = new JPanel();
-		principalEast.setLayout(new BoxLayout(principalEast,BoxLayout.Y_AXIS));
+		//principalEast = new JPanel();
+		//principalEast.setLayout(new BoxLayout(principalEast,BoxLayout.Y_AXIS));
 		
 		principalSouth = new JPanel();
 		
 		//scrollCentro = new JScrollPane(principalCenter);
 		//scrollWest = new JScrollPane(principalWest);
-		scrollEast = new JScrollPane(principalEast);
+		//scrollEast = new JScrollPane(principalEast);
 		
 		
 		//principalWest.setBackground(Color.WHITE);
-		principalEast.setBackground(Color.WHITE);
+		//principalEast.setBackground(Color.WHITE);
 		principalSouth.setBackground(Color.orange);
 		
 		//l2 = new JLabel("órdenes pendientes + contadores");
@@ -144,6 +182,7 @@ public class Ventana extends JFrame implements ActionListener {
 		
 		crearPanelWest(colaClientes); // crea el panel del cliente
 		crearPanelCenter(colaClientes);//crea el panel de ordenes pendientes
+		crearPanelEast(colaProduc);
 		this.add(scrollWest); // agrega el scroll que contiene el panel del cliente
 		this.add(scrollCentro);
 		
@@ -153,12 +192,12 @@ public class Ventana extends JFrame implements ActionListener {
 		
 	}
 	
-	public Ventana(Cola cola) {
+	public Ventana(Cola cola, ColaProduccion colaProduccion) {
 		super("Restaurante");
 		this.setPreferredSize(new DimensionUIResource(1000,600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		agregarComponentes(cola);
+		agregarComponentes(cola,colaProduccion);
 		
 		this.pack();
 		this.setVisible(true);
@@ -171,7 +210,7 @@ public class Ventana extends JFrame implements ActionListener {
 		if(e.getSource().equals(botonAvanzar)) {
 			Main.avanzar();
 			Main.info();
-			Ventana nueva = new Ventana(Main.colaClientes);//nueva ventana con contadores actualizados
+			Ventana nueva = new Ventana(Main.colaClientes,Main.colaProduc);//nueva ventana con contadores actualizados
 			nueva.setVisible(true); //esto permite la actualización de los contadores dentro de la interfaz
 			this.dispose();//eliminamos la ventana con contadores desactualizados
 			

@@ -10,7 +10,7 @@ public class Main {
 	
 	static Cola colaClientes = new Cola();
 	static ColaProduccion colaProduc = new ColaProduccion();
-	static Menu ListaMenu = new Menu();//ListaMenu.items contiene arrayList con todos los alimentos del restaurante
+	//static Menu ListaMenu = new Menu();//ListaMenu.items contiene arrayList con todos los alimentos del restaurante
 	
 	static int ordenesCompletadas =0;
 	static int ganancias = 0;
@@ -28,6 +28,9 @@ public class Main {
 	
 	public static void crearPedido() {
 		Pedido pedido = new Pedido();
+		Menu menuCliente = new Menu();//ListaMenu.items contiene arrayList con todos los alimentos del restaurante
+		JSONReader fileJSON = new JSONReader(menuCliente); // cada cliente tendrá su propio menu, para no repetir objetos en memoria entre clientes
+		
 		boolean[] opciones = {true,false};
 		Random r = new Random();
 		int ran = r.nextInt(2);//una opcion aleatoria entre 0 y 1 para el indice de opciones
@@ -39,7 +42,7 @@ public class Main {
 		while(aleatorio>=0) {
 			Random r2 = new Random();
 			int r3 = r2.nextInt(12);//cualquier objeto <Alimento> dentro de ListaMenu estara en este indice
-			pedido.items.add(ListaMenu.items.get(r3));
+			pedido.items.add(menuCliente.items.get(r3));
 			//System.out.println(r3);
 			aleatorio--;
 		}
@@ -63,6 +66,7 @@ public class Main {
 				}
 			}
 		}
+		
 		// 2. tiempoProduccion -=1 de productos en produccion
 		for(Alimento alimento2 : colaProduc.produccion) {
 			alimento2.tiempoProduccion-=1;
@@ -80,6 +84,7 @@ public class Main {
 		}
 		
 		//4. reducir contadores de impaciencia y sacar pedido de colaClientes si llegó a 0 (sin sumar ganancias)
+		
 		Iterator<Pedido>it = colaClientes.pedidosTotales.iterator();
 		while(it.hasNext()) {
 			Pedido pedido3 = (Pedido)it.next();
@@ -150,7 +155,7 @@ public class Main {
 		//luego de crear instancias de JSON, se meten en array (ListaMenu)
 		// de ese array agarramos esos objetos <Alimento> para meterlos a instancias Pedido.
 		
-		JSONReader fileJSON = new JSONReader(ListaMenu);
+		//JSONReader fileJSON = new JSONReader(ListaMenu);
 		
 		System.out.println("Digite la cantidad de clientes por crear: ");
 		Scanner scan = new Scanner(System.in);
@@ -161,7 +166,7 @@ public class Main {
 			cantidad--;
 		}
 		
-		Ventana v1 = new Ventana(colaClientes);
+		Ventana v1 = new Ventana(colaClientes,colaProduc);
 		//System.out.println(ListaMenu.items);
 		
 	}
