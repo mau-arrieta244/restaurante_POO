@@ -35,7 +35,22 @@ public class Ventana extends JFrame implements ActionListener {
 	JScrollPane scrollEast;// ....
 	
 	JButton botonAvanzar;
+	
+	// SOUTH (PANEL DERECHA al fondo)
+	JLabel ganancias;
+	JLabel ordenesComplet;
+	JLabel espacioOcupado;
+	JLabel clientes;
+	JLabel espacios;
+	JLabel espacios1;
+	JLabel espacios2;
+	JLabel espacios3;
+	JLabel espacios4;
 	//
+	
+	//Pantalla pop-up final de la cola
+	//JDialog popUp;
+	
 	
 	public Ventana() { //no se está usando este constructor default
 		//super("Restaurante");
@@ -70,11 +85,14 @@ public class Ventana extends JFrame implements ActionListener {
 		//panel CLIENTE
 		fotoCliente = new ImageIcon("C:\\Users\\mauar\\Desktop\\CODE\\restaurante_POO\\src\\proyectoPOO\\imagen\\cliente.jpg");
 		l3 = new JLabel(fotoCliente);
-		principalWest.add(l3);	
-		for (Alimento alimento : cola.pedidosTotales.get(0).items) {
-			ArrayList<String> informacion = alimento.info();
-			agregarACliente(informacion);		
+		principalWest.add(l3);
+		if(cola.pedidosTotales.isEmpty()==false) {
+			for (Alimento alimento : cola.pedidosTotales.get(0).items) {
+				ArrayList<String> informacion = alimento.info();
+				agregarACliente(informacion);		
+			}
 		}
+		
 	}
 	
 	public void agregarACentro(Pedido pedido) {
@@ -151,7 +169,7 @@ public class Ventana extends JFrame implements ActionListener {
 		}
 	}
 	
-	private void agregarComponentes(Cola colaClientes,ColaProduccion colaProduc) {
+	private void agregarComponentes(Cola colaClientes,ColaProduccion colaProduc,int ordenesCompletadas,int ganancia,int clientesImpacientes) {
 		
 		//principalWest = new JPanel();
 		//principalWest.setLayout(new BoxLayout(principalWest,BoxLayout.Y_AXIS));
@@ -172,12 +190,35 @@ public class Ventana extends JFrame implements ActionListener {
 		//principalWest.setBackground(Color.WHITE);
 		//principalEast.setBackground(Color.WHITE);
 		principalSouth.setBackground(Color.orange);
+		principalSouth.setLayout(new BoxLayout(principalSouth,BoxLayout.Y_AXIS));
 		
-		//l2 = new JLabel("órdenes pendientes + contadores");
-		//principalCenter.add(l2);
+		ordenesComplet = new JLabel("Ordenes completadas: "+String.valueOf(ordenesCompletadas));
+		ganancias = new JLabel("Ganancias: "+String.valueOf(ganancia));
+		JLabel espacioOcupado = new JLabel("Espacio ocupado: "+String.valueOf(Main.colaProduc.espacioOcupado()));
+		clientes = new JLabel("Clientes insatisfechos: "+String.valueOf(clientesImpacientes));
 		
 		botonAvanzar = new JButton("AVANZAR");
 		botonAvanzar.addActionListener(this);
+		
+		espacios = new JLabel("\n ------------------- \n");
+		espacios1 = new JLabel("\n ------------------- \n");
+		espacios2 = new JLabel("\n ------------------- \n");
+		espacios3 = new JLabel("\n ------------------- \n");
+		espacios4 = new JLabel("\n ------------------- \n");
+		
+		principalSouth.add(espacios);
+		principalSouth.add(ordenesComplet);
+		principalSouth.add(espacios1);
+		
+		principalSouth.add(ganancias);
+		principalSouth.add(espacios2);
+		
+		principalSouth.add(espacioOcupado);
+		principalSouth.add(espacios3);
+		
+		principalSouth.add(clientes);
+		principalSouth.add(espacios4);
+		
 		principalSouth.add(botonAvanzar);
 		
 		crearPanelWest(colaClientes); // crea el panel del cliente
@@ -192,12 +233,13 @@ public class Ventana extends JFrame implements ActionListener {
 		
 	}
 	
-	public Ventana(Cola cola, ColaProduccion colaProduccion) {
+	
+	public Ventana(Cola cola, ColaProduccion colaProduccion,int ordenesComp, int ganancia,int clientesImpacientes) {
 		super("Restaurante");
 		this.setPreferredSize(new DimensionUIResource(1000,600));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		agregarComponentes(cola,colaProduccion);
+		agregarComponentes(cola,colaProduccion,ordenesComp,ganancia,clientesImpacientes);
 		
 		this.pack();
 		this.setVisible(true);
@@ -210,7 +252,7 @@ public class Ventana extends JFrame implements ActionListener {
 		if(e.getSource().equals(botonAvanzar)) {
 			Main.avanzar();
 			Main.info();
-			Ventana nueva = new Ventana(Main.colaClientes,Main.colaProduc);//nueva ventana con contadores actualizados
+			Ventana nueva = new Ventana(Main.colaClientes,Main.colaProduc,Main.ordenesCompletadas,Main.ganancias,Main.clientesImpacientes);//nueva ventana con contadores actualizados
 			nueva.setVisible(true); //esto permite la actualización de los contadores dentro de la interfaz
 			this.dispose();//eliminamos la ventana con contadores desactualizados
 			

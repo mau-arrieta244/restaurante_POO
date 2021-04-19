@@ -14,6 +14,7 @@ public class Main {
 	
 	static int ordenesCompletadas =0;
 	static int ganancias = 0;
+	static int clientesImpacientes = 0;
 	
 	public static boolean todosInactivos(Pedido pedido) {//revisa si algun pedido de la cola total tiene todo en inactivo
 		boolean condicion = true;
@@ -94,6 +95,7 @@ public class Main {
 				}
 				it.remove();
 				System.out.println("Cliente impaciente se ha cansado de esperar...");
+				clientesImpacientes+=1;
 			}
 			if(pedido3.impaciente) {
 				pedido3.contadorPaciencia--;
@@ -128,6 +130,8 @@ public class Main {
 		int sizePedidos = colaClientes.pedidosTotales.size();
 		int sizeProduccion = colaProduc.produccion.size();
 		if(sizePedidos == 0 && sizeProduccion ==0) {
+			
+			//Ventana.pantallaFinal(ordenesCompletadas,ganancias);
 			System.out.println("\n ------ Cola produccion terminada -------- \n");
 			System.out.println("\n Alimentos en produccion:");
 			System.out.println(colaProduc.produccion);
@@ -135,7 +139,13 @@ public class Main {
 			System.out.println("\nOrdenes completadas: "+ordenesCompletadas);
 			System.out.println("\n Ganancias totales: "+ganancias);
 			System.out.println("\n ----  Adios! -------- \n");
-			System.exit(0);
+			
+			
+			//popUp pantallaFinal = new popUp(ordenesCompletadas,ganancias);
+			//System.exit(0);
+			
+			
+			
 		}
 	}//fin de avanzar()
 
@@ -166,8 +176,9 @@ public class Main {
 			cantidad--;
 		}
 		
-		Ventana v1 = new Ventana(colaClientes,colaProduc);
+		Ventana v1 = new Ventana(colaClientes,colaProduc,ordenesCompletadas,ganancias,clientesImpacientes);
 		//System.out.println(ListaMenu.items);
+		
 		
 	}
 
