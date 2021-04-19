@@ -10,6 +10,7 @@ public class Main {
 	
 	static Cola colaClientes = new Cola();
 	static ColaProduccion colaProduc = new ColaProduccion();
+	static Combo combos = new Combo();
 	//static Menu ListaMenu = new Menu();//ListaMenu.items contiene arrayList con todos los alimentos del restaurante
 	
 	static int ordenesCompletadas =0;
@@ -119,9 +120,7 @@ public class Main {
 			Pedido pedido4 = (Pedido)it1.next();
 			if(todosInactivos(pedido4)==true) {
 				
-				for(Alimento alim : pedido4.items) {
-					ganancias+=alim.precio;
-				}
+				ganancias += combos.comparar(pedido4); // Las ganancias son calculadas dentro de la clase Combo
 				
 				it1.remove();
 				ordenesCompletadas+=1;
@@ -171,6 +170,10 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		int cantidad = scan.nextInt();
 		
+		Menu menuCombos = new Menu();
+		JSONReader lector = new JSONReader(menuCombos);
+		combos.llenar(menuCombos);
+		
 		while (cantidad>0) {
 			crearPedido();
 			cantidad--;
@@ -178,8 +181,5 @@ public class Main {
 		
 		Ventana v1 = new Ventana(colaClientes,colaProduc,ordenesCompletadas,ganancias,clientesImpacientes);
 		//System.out.println(ListaMenu.items);
-		
-		
 	}
-
 }
